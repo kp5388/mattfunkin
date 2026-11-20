@@ -253,7 +253,7 @@ class TitleState extends MusicBeatState
 			FlxG.fullscreen = !FlxG.fullscreen;
 		}
 
-		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER;
+		var pressedEnter:Bool = FlxG.keys.pressed.A && FlxG.keys.pressed.B;
 
 		#if mobile
 		for (touch in FlxG.touches.list)
@@ -309,7 +309,7 @@ class TitleState extends MusicBeatState
 					{
 						trace('outdated lmao! ' + data.trim() + ' != ' + MainMenuState.kadeEngineVer);
 						OutdatedSubState.needVer = data;
-						FlxG.switchState(new OutdatedSubState());
+						FlxG.switchState(new MainMenuState()); //OutdatedSubState()
 					}
 					else
 					{

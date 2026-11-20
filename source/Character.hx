@@ -538,10 +538,11 @@ class Character extends FlxSprite
 				animation.addByPrefix('singDOWN', 'matt down note', 24, false);
 				animation.addByPrefix('singLEFT', 'matt left note', 24, false);
 				animation.addByPrefix('singRIGHT', 'matt right note', 24, false);
-				addOffset("singUP", 0, 20);
-				addOffset("singRIGHT", -15, -20);
-				addOffset("singLEFT", 30, -40);
-				addOffset("singDOWN", 0, -20);
+				addOffset("idle");
+				addOffset("singUP", -53, 14);
+				addOffset("singRIGHT", -7, -23);
+				addOffset("singLEFT", 40, -37);
+				addOffset("singDOWN", -60, -24);
 				playAnim('idle');
 		}
 

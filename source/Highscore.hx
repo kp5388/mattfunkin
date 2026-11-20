@@ -60,7 +60,7 @@ class Highscore
 		FlxG.save.flush();
 	}
 
-	public static function formatSong(song:String, diff:Int):String
+	public static function formatSong(song:String, diff:Int):String  //FUCKING CUNT ASS FUNCTION
 	{
 		var daSong:String = song;
 
@@ -68,6 +68,10 @@ class Highscore
 			daSong += '-easy';
 		else if (diff == 2)
 			daSong += '-hard';
+		else if (diff == 3)
+			daSong += '-alt';
+		else if (diff == 4)
+			daSong += '-mania';			
 
 		return daSong;
 	}

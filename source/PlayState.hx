@@ -53,7 +53,7 @@ class PlayState extends MusicBeatState
 	public static var isStoryMode:Bool = false;
 	public static var storyWeek:Int = 0;
 	public static var storyPlaylist:Array<String> = [];
-	public static var storyDifficulty:Int = 1;
+	public static var storyDifficulty:Int = 2;
 	public static var weekSong:Int = 0;
 	public static var shits:Int = 0;
 	public static var bads:Int = 0;
@@ -205,6 +205,10 @@ class PlayState extends MusicBeatState
 				storyDifficultyText = "Normal";
 			case 2:
 				storyDifficultyText = "Hard";
+			case 3:
+				storyDifficultyText = "Alt";
+			case 4:
+				storyDifficultyText = "Mania";				
 		}
 
 		iconRPC = SONG.player2;
@@ -598,7 +602,7 @@ class PlayState extends MusicBeatState
 					curStage = 'swordarena';
 					var bg:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('swordfight'));
 					bg.antialiasing = true;
-					bg.scrollFactor.set(0.9, 0.9);
+					bg.scrollFactor.set(1.1, 1.1);
 					bg.active = false;
 					add(bg);
 			}
@@ -829,7 +833,7 @@ class PlayState extends MusicBeatState
 		add(healthBar);
 
 		// Add Kade Engine watermark
-		var kadeEngineWatermark = new FlxText(4,healthBarBG.y + 50,0,SONG.song + " " + (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy") + " - KE " + MainMenuState.kadeEngineVer + " - " + (FlxG.save.data.etternaMode ? "E.Mode" : "FNF"), 16);
+		var kadeEngineWatermark = new FlxText(4,healthBarBG.y + 50,0,SONG.song + " " + (storyDifficulty == 4 ? "Mania" : storyDifficulty == 3 ? "Alt" : storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy") + " - KE " + MainMenuState.kadeEngineVer + " - " + (FlxG.save.data.etternaMode ? "E.Mode" : "FNF"), 16);
 		kadeEngineWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
 		kadeEngineWatermark.scrollFactor.set();
 		add(kadeEngineWatermark);
@@ -1493,7 +1497,7 @@ class PlayState extends MusicBeatState
 
 	function generateRanking():String
 	{
-		var ranking:String = "N/A";
+		var ranking:String = "???";
 
 		if (misses == 0 && bads == 0 && shits == 0 && goods == 0) // Marvelous (SICK) Full Combo
 			ranking = "(MFC)";
@@ -1506,73 +1510,90 @@ class PlayState extends MusicBeatState
 		else
 			ranking = "(Clear)";
 
-		// WIFE TIME :)))) (based on Wife3)
+        // WIFE TIME :)))) (based on Wife3) //nah fuck off this is my port i make the rules here bitch
 
-		var wifeConditions:Array<Bool> = [
-			accuracy >= 99.9935, // AAAAA
-			accuracy >= 99.980, // AAAA:
-			accuracy >= 99.970, // AAAA.
-			accuracy >= 99.955, // AAAA
-			accuracy >= 99.90, // AAA:
-			accuracy >= 99.80, // AAA.
-			accuracy >= 99.70, // AAA
-			accuracy >= 99, // AA:
-			accuracy >= 96.50, // AA.
-			accuracy >= 93, // AA
-			accuracy >= 90, // A:
-			accuracy >= 85, // A.
-			accuracy >= 80, // A
-			accuracy >= 70, // B
-			accuracy >= 60, // C
-			accuracy < 60 // D
-		];
+        var wifeConditions:Array<Bool> = [
+            accuracy >= 100, // SS
+            accuracy >= 95, // S
+            accuracy >= 90, // A (A:)
+            accuracy >= 80, // B (A)
+            accuracy >= 60, // C
+            accuracy < 60 // D
 
-		for(i in 0...wifeConditions.length)
-		{
-			var b = wifeConditions[i];
-			if (b)
-			{
-				switch(i)
-				{
-					case 0:
-						ranking += " AAAAA";
-					case 1:
-						ranking += " AAAA:";
-					case 2:
-						ranking += " AAAA.";
-					case 3:
-						ranking += " AAAA";
-					case 4:
-						ranking += " AAA:";
-					case 5:
-						ranking += " AAA.";
-					case 6:
-						ranking += " AAA";
-					case 7:
-						ranking += " AA:";
-					case 8:
-						ranking += " AA.";
-					case 9:
-						ranking += " AA";
-					case 10:
-						ranking += " A:";
-					case 11:
-						ranking += " A.";
-					case 12:
-						ranking += " A";
-					case 13:
-						ranking += " B";
-					case 14:
-						ranking += " C";
-					case 15:
-						ranking += " D";
-				}
-				break;
+            //accuracy >= 99.9935, // AAAAA
+            //accuracy >= 99.980, // AAAA:
+            //accuracy >= 99.970, // AAAA.
+            //accuracy >= 99.955, // AAAA
+            //accuracy >= 99.90, // AAA:
+            //accuracy >= 99.80, // AAA.
+            //accuracy >= 99.70, // AAA
+            //accuracy >= 99, // AA:
+            //accuracy >= 96.50, // AA.
+            //accuracy >= 93, // AA
+            //accuracy >= 85, // A.
+            //accuracy >= 70, // B
+        ];
+
+        for(i in 0...wifeConditions.length)
+        {
+            var b = wifeConditions[i];
+            if (b)
+            {
+                switch(i)
+                {
+                    case 0:
+                        ranking += " SS";
+                    case 1:
+                        ranking += " S";
+                    case 2:
+                        ranking += " A";
+                    case 3:
+                        ranking += " B";
+                    case 4:
+                        ranking += " C";
+                    case 5:
+                        ranking += " D";
+
+//                    case 1:
+//                        ranking += " AAAAA";
+//                    case 2:
+//                        ranking += " AAAA:";
+//                    case 3:
+//                        ranking += " AAAA.";
+//                    case 4:
+//                        ranking += " AAAA";
+//                    case 5:
+//                        ranking += " AAA:";
+//                    case 6:
+//                        ranking += " AAA.";
+//                    case 7:
+//                        ranking += " AAA";
+//                    case 8:
+//                        ranking += " AA:";
+//                    case 9:
+//                        ranking += " AA.";
+//                    case 10:
+//                        ranking += " AA";
+//                    case 11:
+//                        ranking += " A:";
+//                    case 12:
+//                        ranking += " A.";
+//                    case 13:
+//                        ranking += " A";
+//                    case 14:
+//                        ranking += " B";
+//                    case 15:
+//                        ranking += " C";
+//                    case 16:
+//                        ranking += " D";
+
+                }
+                break;
 			}
 		}
 
 		if (accuracy == 0)
-			ranking = "N/A";
+			ranking = "???";
 
 		return ranking;
 	}
@@ -1630,7 +1651,7 @@ class PlayState extends MusicBeatState
 		{
 			if (FlxG.save.data.accuracyDisplay)
 			{
-				scoreTxt.text = (FlxG.save.data.npsDisplay ? "NPS: " + nps + " | " : "") + "Score:" + (FlxG.save.data.etternaMode ? Math.max(0,etternaModeScore) + " (" + songScore + ")" : "" + songScore) + " | Combo Breaks:" + misses + " | Accuracy:" + truncateFloat(accuracy, 2) + "% | " + generateRanking();
+				scoreTxt.text = (FlxG.save.data.npsDisplay ? "NPS: " + nps + " | " : "") + "Score:" + (FlxG.save.data.etternaMode ? Math.max(0,etternaModeScore) + " (" + songScore + ")" : "" + songScore) + " | Misses:" + misses + " | Accuracy:" + truncateFloat(accuracy, 2) + "% | " + generateRanking();
 			}
 			else
 			{
@@ -2029,6 +2050,12 @@ class PlayState extends MusicBeatState
 
 					if (storyDifficulty == 2)
 						difficulty = '-hard';
+						
+					if (storyDifficulty == 3)
+						difficulty = '-alt';
+						
+					if (storyDifficulty == 4)
+						difficulty = '-mania';
 
 					trace('LOADING NEXT SONG');
 					trace(PlayState.storyPlaylist[0].toLowerCase() + difficulty);

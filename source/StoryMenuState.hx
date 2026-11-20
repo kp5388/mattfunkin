@@ -33,7 +33,7 @@ class StoryMenuState extends MusicBeatState
 		['Senpai', 'Roses', 'Thorns'],
 		['Light-It-Up','Ruckus','Target-Practice']
 	];
-	var curDifficulty:Int = 1;
+	var curDifficulty:Int = 2;
 
 	public static var weekUnlocked:Array<Bool> = [true, true, true, true, true, true, true, true];
 
@@ -169,6 +169,8 @@ class StoryMenuState extends MusicBeatState
 		sprDifficulty.animation.addByPrefix('easy', 'EASY');
 		sprDifficulty.animation.addByPrefix('normal', 'NORMAL');
 		sprDifficulty.animation.addByPrefix('hard', 'HARD');
+		sprDifficulty.animation.addByPrefix('alt', 'ALT');
+		sprDifficulty.animation.addByPrefix('mania', 'Shaggy4KManiaDiff');
 		sprDifficulty.animation.play('easy');
 		changeDifficulty();
 
@@ -296,6 +298,10 @@ class StoryMenuState extends MusicBeatState
 					diffic = '-easy';
 				case 2:
 					diffic = '-hard';
+				case 3:
+					diffic = '-alt';
+				case 4:
+					diffic = '-mania';					
 			}
 
 			PlayState.storyDifficulty = curDifficulty;
@@ -315,8 +321,8 @@ class StoryMenuState extends MusicBeatState
 		curDifficulty += change;
 
 		if (curDifficulty < 0)
-			curDifficulty = 2;
-		if (curDifficulty > 2)
+			curDifficulty = 4;
+		if (curDifficulty > 4)
 			curDifficulty = 0;
 
 		sprDifficulty.offset.x = 0;
@@ -332,6 +338,12 @@ class StoryMenuState extends MusicBeatState
 			case 2:
 				sprDifficulty.animation.play('hard');
 				sprDifficulty.offset.x = 20;
+			case 3:
+				sprDifficulty.animation.play('alt');
+				sprDifficulty.offset.x = 20;
+			case 4:
+				sprDifficulty.animation.play('mania');
+				sprDifficulty.offset.x = 20;				
 		}
 
 		sprDifficulty.alpha = 0;
